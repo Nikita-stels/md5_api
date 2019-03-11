@@ -1,0 +1,3 @@
+CREATE DATABASE md5_api;
+\connect md5_api;
+CREATE TYPE status AS ENUM ('CREATED','RUNNING','DONE','FAIL');CREATE TABLE IF NOT EXISTS "task" (      "id" varchar(50) NOT NULL,      "created_at" timestamp  DEFAULT CURRENT_TIMESTAMP,      "started_at" timestamp  DEFAULT NULL,      "finished_at" timestamp  DEFAULT NULL,      "url" varchar(32768) NOT NULL,      "email" varchar(120) DEFAULT NULL,      "status" status NOT NULL,      "md5" varchar(32) DEFAULT NULL,      PRIMARY KEY ("id")    );

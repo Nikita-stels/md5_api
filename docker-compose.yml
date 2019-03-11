@@ -1,0 +1,40 @@
+version: "2"
+services:
+  app:
+    build: .
+    container_name: api
+    ports:
+    - "8000:8000"
+    volumes:
+    - .:/code
+    command: uwsgi --ini /code/md5_api/uwsgi.ini
+    depends_on:
+    - rabbit
+    - postgres
+  celery:
+    build: .
+    container_name: celery
+    volumes:
+    - .:/code
+    command: celery -A md5_api.celery worker --loglevel=info
+    depends_on:
+    - postgres
+    - rabbit
+
+  postgres:
+    container_name: postgres_instance
+    restart: always
+    image: postgres:10
+    volumes:
+    - .:/docker-entrypoint-initdb.d
+    ports:
+    - "5434:5432"
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: rabbit
+    ports:
+    - "5672:5672"
+    hostname: "rabbit"
+    environment:
+    - RABBITMQ_DEFAULT_USER=user
+    - RABBITMQ_DEFAULT_PASS=password
