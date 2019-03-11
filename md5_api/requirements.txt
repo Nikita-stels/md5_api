@@ -40,7 +40,7 @@ pytest==3.7.1
 pytest-flask==0.10.0
 pytest-mock==1.10.0
 pytz==2018.5
-requests==2.19.1
+requests==2.20.0
 simplegeneric==0.8.1
 six==1.11.0
 SQLAlchemy==1.2.10
